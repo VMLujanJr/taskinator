@@ -1,7 +1,11 @@
+// References to the Index.HTML file
 var taskIdCounter = 0;
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
+var pageContentEl = document.querySelector("#page-content");
 
+
+// Function 1
 var taskFormHandler = function(event) {
     event.preventDefault();
     var taskNameInput = document.querySelector("input[name='task-name']").value;
@@ -26,6 +30,7 @@ var taskFormHandler = function(event) {
     formEl.reset();
 };
 
+// Function 2
 var createTaskEl = function(taskDataObj) {
     // create list item
     var listItemEl = document.createElement("li");
@@ -51,6 +56,7 @@ var createTaskEl = function(taskDataObj) {
     taskIdCounter++;
 };
 
+// Function 3
 var createTaskActions = function(taskId) {
     var actionContainerEl = document.createElement("div");
     actionContainerEl.className = "task-actions";
@@ -92,6 +98,17 @@ var createTaskActions = function(taskId) {
 
 
     return actionContainerEl;
-}
+};
 
+// Function 4
+var taskButtonHandler = function (event) {
+    console.log(event.target);
+
+    if (event.target.matches(".delete-btn")) {
+        console.log("You clicked a delete button!");
+    }
+};
+
+// Event listeners
+pageContentEl.addEventListener("click", taskButtonHandler);
 formEl.addEventListener("submit", taskFormHandler);
