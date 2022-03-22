@@ -1,10 +1,13 @@
 // References to the Index.HTML file
 var taskIdCounter = 0;
+
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 var pageContentEl = document.querySelector("#page-content");
 var tasksInProgressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
+
+// create array to hold tasks for saving
 var tasks = [];
 
 
@@ -234,7 +237,31 @@ var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// Function 10
+var loadTasks = function() {
+    var savedTasks = localStorage.getItem("tasks");
+    // if there are no tasks, set tasks to an empty array and return out of the function 
+    if (!savedTasks) {
+        return false;
+    }
+    // else, load up saved tasks
+
+    // parse into array of objects
+    savedTasks = JSON.parse(savedTasks);
+
+    // loop through savedTasks array
+    for (var i = 0; i < savedTasks.length; i++) {
+        // pass each task object into the 'createTaskEl()' function
+        createTaskEl(savedTasks[i]);
+    }
+};
+
 // Event listeners
+/* for edit and delete buttons */
 pageContentEl.addEventListener("click", taskButtonHandler);
+/* Create a new task */
 formEl.addEventListener("submit", taskFormHandler);
+/* for changing the status */
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
